@@ -15,6 +15,22 @@ steps:
     versionSpec: '10.x'
   displayName: 'Install Node.js'
 
+- task: SonarCloudPrepare@1
+  inputs:
+    SonarCloud: 'kr-sonar'
+    organization: 'karthikvuduturi'
+    scannerMode: 'CLI'
+    configMode: 'manual'
+    cliProjectKey: 'karthikvuduturi_MyCalculator'
+    cliProjectName: 'MyCalculator'
+    cliSources: '.'
+
+- task: SonarCloudAnalyze@1
+
+- task: SonarCloudPublish@1
+  inputs:
+    pollingTimeoutSec: '300'
+
 - script: |
     npm install
     npm run build
